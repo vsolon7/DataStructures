@@ -13,24 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\LinkedList">
+      <UniqueIdentifier>{3bfad3d0-8949-4943-931f-edf07ba8341a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Linked List">
+      <UniqueIdentifier>{89c55ce5-26c2-43ca-b56f-358a26fb05a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LinkedList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Linked List</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LLNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Error.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files\LinkedList</Filter>
+    </ClInclude>
+    <ClInclude Include="LLNode.h">
+      <Filter>Header Files\LinkedList</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

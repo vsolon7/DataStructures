@@ -1,7 +1,6 @@
 #pragma once
 #include "LLNode.h"
 
-
 class LinkedList
 {
 public:
