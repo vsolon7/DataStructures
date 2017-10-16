@@ -31,6 +31,10 @@ public:
 	//deletes the last node in the linked list
 	void popBack();
 
+	//reverses the linked list! basically makes all the pointers point backwards and the 
+	//head node is at the "back" after calling this function. iterative not recursive
+	void reverse();
+
 private:
 	LLNode *_beginNode;
 	int _size;

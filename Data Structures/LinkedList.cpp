@@ -143,13 +143,25 @@ void LinkedList::deleteNode(int p)
 	if (_size == 1)
 	{
 		destroyNodes();
+		_size--;
 		return;
 	}
 
-	if (p > _size || p == 0)
+	//if the position is outside the range of the linked list, tough titties
+	if (p > _size || p < 0)
 	{
 		Error err("Error deleting node, invalid position at: " + std::to_string(p));
 		std::cerr << err.what() << std::endl;
+		return;
+	}
+
+	//if the positoin is 0, then make the next node the new head node
+	if (p == 0)
+	{
+		LLNode *it = _beginNode->nextNode;
+		delete _beginNode;
+		_beginNode = it;
+		_size--;
 		return;
 	}
 
@@ -182,10 +194,40 @@ void LinkedList::deleteNode(int p)
 	_size--;
 }
 
+void LinkedList::reverse()
+{
+	//create some variables we need. since we need to modify nodes infront of and behind us, we need three.
+	//one for the next node, one for the current, and one for the previous
+	LLNode *next = _beginNode;
+	LLNode *curr = _beginNode;
+	LLNode *prev = curr;
+
+	//loop through the entire LL
+	for (int i = 0; i != _size; i++)
+	{
+		//move the next node to be one ahead from the current node, at all times
+		next = next->nextNode;
+
+		//if this is the first node, then we make it the new ending node
+		if (i == 0)
+			curr->nextNode = nullptr;
+		//else, the node now points to the one behind it!
+		else
+			curr->nextNode = prev;
+
+		//the previous node is now the current, and the current node is now the next
+		prev = curr;
+		curr = next;
+	}
+	//finally the beginning node is equal to the node that used to be at the end.
+	//after the loop finishes, next and curr are both NULL, and prev is the last value
+	_beginNode = prev;
+}
+
 void LinkedList::popBack()
 {
 	//just call the deleteNode() function with the position set to the end
-	deleteNode(_size);
+	deleteNode(_size - 1);
 }
 
 LinkedList::~LinkedList()
