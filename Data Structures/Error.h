@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+//just creates an error message.
 struct Error
 {
 	Error(std::string error)

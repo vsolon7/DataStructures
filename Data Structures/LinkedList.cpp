@@ -12,6 +12,12 @@ LinkedList::LinkedList(LLNode *begin)
 
 LLNode * LinkedList::getBeg()
 {
+	if (_size < 1)
+	{
+		Error err("Error: could not get beginning node, list has no elements");
+		std::cerr << err.what() << std::endl;
+	}
+
 	//get the node at the beginning
 	return _beginNode;
 }
@@ -23,7 +29,7 @@ int LinkedList::size()
 
 void LinkedList::destroyNodes()
 {
-	if (_size > 0)
+	if (_size > 1)
 	{
 		//free memory from the heap!
 		LLNode *it = _beginNode;
@@ -38,6 +44,11 @@ void LinkedList::destroyNodes()
 		}
 		//delete the last one!
 		delete it;
+	}
+	if (_size == 1)
+	{
+		delete _beginNode;
+		_size--;
 	}
 }
 
@@ -63,6 +74,7 @@ void LinkedList::insertNode(float data, int p)
 		LLNode *n = new LLNode(data, _beginNode);
 		_beginNode = n;
 	}
+
 	//if they want to insert it anywhere else
 	else if (p <= _size)
 	{
@@ -101,7 +113,7 @@ void LinkedList::printNodes(int p)
 	//if there are no elements, tell us!
 	if (_size == 0)
 	{
-		Error err("Error: list size is zero");
+		Error err("Error printing nodes, list size is zero");
 		std::cerr << err.what() << std::endl;
 		return;
 	}
@@ -122,15 +134,22 @@ void LinkedList::printNodes(int p)
 void LinkedList::deleteNode(int p)
 {
 	//pretty much does the same thing as the insert, just deletes the node.
-	//We end at one before the actual value because if i delete it->nextNode then that's all good.
+	//We end at one before the actual value of p because if i delete it->nextNode then that's all good.
 	//However, if i delete the iterator itself, im screwed.
 	
 
-	//if the size of the node is 1 (just the root node), delete the root node.
+
+	//if the size of the node is 1 (just the root node), and we delete it, the list doens't exist anymore
 	if (_size == 1)
 	{
-		delete _beginNode;
-		_size--;
+		destroyNodes();
+		return;
+	}
+
+	if (p > _size || p == 0)
+	{
+		Error err("Error deleting node, invalid position at: " + std::to_string(p));
+		std::cerr << err.what() << std::endl;
 		return;
 	}
 
@@ -158,6 +177,7 @@ void LinkedList::deleteNode(int p)
 		delete it->nextNode;
 		it->nextNode = it2;
 	}
+
 	//our LL is now one element smaller. The size should reflect that!
 	_size--;
 }
